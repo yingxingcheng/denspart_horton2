@@ -18,28 +18,20 @@
 # along with this program; if not, see <http://www.gnu.org/licenses/>
 #
 #--
-'''Package for density-based partitioning (fuzzy atoms)'''
-
-from horton.part.base import *
-from horton.part.becke import *
-from horton.part.hirshfeld import *
-from horton.part.hirshfeld_i import *
-from horton.part.hirshfeld_e import *
-from horton.part.linalg import *
-from horton.part.mulliken import *
-from horton.part.proatomdb import *
-from horton.part.stockholder import *
-from horton.part.symmetry import *
 
 
-wpart_schemes = {}
-for o in globals().values():
-    if isinstance(o, type) and issubclass(o, WPart) and o.name is not None:
-        wpart_schemes[o.name] = o
+import numpy as np
 
-cpart_schemes = {}
-for o in globals().values():
-    if isinstance(o, type) and issubclass(o, CPart) and o.name is not None:
-        cpart_schemes[o.name] = o
+from horton import *
 
-del o
+
+def test_mulliken_operators_water_sto3g():
+    fn_fchk = context.get_fn('test/water_sto3g_hf_g03.fchk')
+    sys = System.from_file(fn_fchk)
+    operators = get_mulliken_operators(sys)
+    for operator in operators:
+        operator.check_symmetry()
+    populations = np.array([operator.expectation_value(sys.wfn.dm_full) for operator in operators])
+    charges = sys.numbers - populations
+    assert charges[0] < 0 # oxygen atom
+    assert abs(charges.sum()) < 1e-3

@@ -18,28 +18,29 @@
 # along with this program; if not, see <http://www.gnu.org/licenses/>
 #
 #--
-'''Package for density-based partitioning (fuzzy atoms)'''
-
-from horton.part.base import *
-from horton.part.becke import *
-from horton.part.hirshfeld import *
-from horton.part.hirshfeld_i import *
-from horton.part.hirshfeld_e import *
-from horton.part.linalg import *
-from horton.part.mulliken import *
-from horton.part.proatomdb import *
-from horton.part.stockholder import *
-from horton.part.symmetry import *
 
 
-wpart_schemes = {}
-for o in globals().values():
-    if isinstance(o, type) and issubclass(o, WPart) and o.name is not None:
-        wpart_schemes[o.name] = o
+import numpy as np
 
-cpart_schemes = {}
-for o in globals().values():
-    if isinstance(o, type) and issubclass(o, CPart) and o.name is not None:
-        cpart_schemes[o.name] = o
+from horton.gbasis.cext import get_shell_nbasis
 
-del o
+
+__all__ = ['get_mulliken_operators']
+
+
+def get_mulliken_operators(sys):
+    '''Return a list of mulliken operators for the given system.'''
+    operators = []
+    for icenter in xrange(sys.obasis.ncenter):
+        mask = np.zeros(sys.obasis.nbasis, dtype=bool)
+        begin = 0
+        for ishell in xrange(sys.obasis.nshell):
+            end = begin + get_shell_nbasis(sys.obasis.shell_types[ishell])
+            if sys.obasis.shell_map[ishell] != icenter:
+                mask[begin:end] = True
+            begin = end
+        pop = sys.get_overlap().copy()
+        pop._array[mask] = 0.0
+        pop._array[:] = 0.5*(pop._array + pop._array.T)
+        operators.append(pop)
+    return operators

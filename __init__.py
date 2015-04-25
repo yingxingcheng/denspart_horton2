@@ -32,16 +32,3 @@ from horton.part.mulliken import *
 from horton.part.proatomdb import *
 from horton.part.stockholder import *
 from horton.part.symmetry import *
-
-
-wpart_schemes = {}
-for o in globals().values():
-    if isinstance(o, type) and issubclass(o, WPart) and o.name is not None:
-        wpart_schemes[o.name] = o
-
-cpart_schemes = {}
-for o in globals().values():
-    if isinstance(o, type) and issubclass(o, CPart) and o.name is not None:
-        cpart_schemes[o.name] = o
-
-del o

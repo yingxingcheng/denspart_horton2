@@ -27,7 +27,7 @@ import os
 import h5py as h5
 import numpy as np
 
-from horton.grid import RTransform, CubicSpline
+from .grid import RTransform, CubicSpline
 
 
 __all__ = ['ProAtomRecord', 'ProAtomDB']

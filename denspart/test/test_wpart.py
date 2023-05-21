@@ -23,7 +23,7 @@
 import numpy as np
 from nose.plugins.attrib import attr
 
-from horton.grid import ExpRTransform, RadialGrid, BeckeMolGrid
+from .. grid import ExpRTransform, RadialGrid, BeckeMolGrid
 from .. proatomdb import ProAtomDB
 from .. utils import wpart_schemes
 from .common import load_molecule_npz, load_atoms_npz, check_names, check_proatom_splines

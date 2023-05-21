@@ -27,7 +27,7 @@ import numpy as np
 
 from .cache import JustOnceClass, just_once, Cache
 from .utils import typecheck_geo
-from horton.grid import AtomicGrid, solve_poisson_becke
+from .grid import AtomicGrid, solve_poisson_becke
 
 
 __all__ = ["Part", "WPart"]
@@ -423,7 +423,7 @@ class WPart(Part):
 
 def get_ncart_cumul(lmax):
     """The number of cartesian powers up to a given angular momentum, lmax."""
-    return (lmax + 1) * (lmax + 2) * (lmax + 3) / 6
+    return (lmax + 1) * (lmax + 2) * (lmax + 3) // 6
 
 
 def get_npure_cumul(lmax):

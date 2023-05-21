@@ -29,7 +29,7 @@ from glob import glob
 from contextlib import contextmanager
 
 from .. proatomdb import ProAtomDB, ProAtomRecord
-from horton.grid import LinearRTransform, PowerRTransform, ExpRTransform, RadialGrid
+from horton_grid import LinearRTransform, PowerRTransform, ExpRTransform, RadialGrid
 
 
 __all__ = [

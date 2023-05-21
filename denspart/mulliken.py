@@ -37,7 +37,7 @@ def get_shell_nbasis(shell_type):
     """
     if shell_type > 0:
         # cartesian
-        return (shell_type + 1) * (shell_type + 2) / 2
+        return (shell_type + 1) * (shell_type + 2) // 2
     elif shell_type == -1:
         # should not happen
         return -1

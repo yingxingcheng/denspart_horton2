@@ -26,7 +26,7 @@ from __future__ import print_function
 import numpy as np
 
 from .base import WPart
-from horton.grid import CubicSpline, solve_poisson_becke
+from .grid import CubicSpline, solve_poisson_becke
 
 
 __all__ = ["StockholderWPart"]

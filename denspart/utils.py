@@ -20,6 +20,7 @@
 # --
 """Utility Functions"""
 
+import numpy as np
 
 __all__ = ["typecheck_geo", "radius_becke", "radius_covalent", "wpart_schemes"]
 
@@ -102,7 +103,7 @@ def typecheck_geo(coordinates=None, numbers=None, pseudo_numbers=None,
         if need_numbers:
             raise TypeError('Numbers can not be None.')
     else:
-        if numbers.shape != (natom,) or not issubclass(numbers.dtype.type, int):
+        if numbers.shape != (natom,) or not issubclass(numbers.dtype.type, np.int64):
             raise TypeError('The argument numbers must be a vector with length natom.')
 
     # Typecheck pseudo_numbers

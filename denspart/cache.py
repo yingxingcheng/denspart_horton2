@@ -112,7 +112,7 @@ class CacheItem(object):
     def from_alloc(cls, alloc, tags):
         alloc = _normalize_alloc(alloc)
         # initialize a floating point array
-        array = np.zeros(alloc, float)
+        array = np.zeros(alloc, dtype=float)
         return cls(array, tags=tags)
 
     def check_alloc(self, alloc):

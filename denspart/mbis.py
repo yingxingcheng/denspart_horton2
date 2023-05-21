@@ -56,7 +56,7 @@ def _get_initial_mbis_propars(number):
 
 def _opt_mbis_propars(rho, propars, rgrid, threshold):
     assert len(propars) % 2 == 0
-    nshell = len(propars) / 2
+    nshell = len(propars) // 2
     r = rgrid.radii
     terms = np.zeros((nshell, len(r)), float)
     oldpro = None
